@@ -1,0 +1,54 @@
+﻿@using MvcProject.Models.Entity
+@model IEnumerable<MvcProject.Models.Entity.Account>
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Please Select An Accounts To See Its History</h2>
+<h4>(You can select multiple accounts.)</h4>
+@{
+    int[] i = new int[Model.Count()];
+}
+
+@using (Html.BeginForm("HistoryOf", "Accounts", FormMethod.Post))
+{
+    <table class="table table-bordered">
+        <tr>
+            <th width="10%">Check to Show History</th>
+            <th>Account ID</th>
+            <th>Account Number</th>
+            <th>Net</th>
+        </tr>
+
+        @foreach (Account account in Model)
+        {
+            <tr>
+                <td><input class=" btn-block" type="checkbox" name="ids" value="@account.accNum" /></td>
+                <td>@Html.DisplayFor(m => account.accID)</td>
+                <td>@Html.DisplayFor(m => account.accNum)</td>
+                <td>@Html.DisplayFor(m => account.net)</td>
+            </tr>
+        }
+
+    </table>
+    <div>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" }) |
+        <button type="submit" value="Show History" class="btn btn-info" onclick="submitform()">Select</button>
+    </div>
+
+}
+
+<script>
+    function submitform() {
+
+        $('input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                id = $(this).attr("data-id");// get selected image Id to variable id.
+            }
+        });
+        $('<input type="hidden" name="id"/>').val(id).appendTo('form'); // add hidden input to form to pass selected image Id.
+        $("form").submit();
+    }
+</script>
+

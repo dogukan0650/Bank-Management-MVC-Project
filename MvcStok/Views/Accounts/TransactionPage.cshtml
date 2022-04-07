@@ -1,0 +1,100 @@
+﻿@model MvcProject.Models.Entity.Account
+@{
+    ViewBag.Title = "TransactionPage";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>TransactionPage</h2>
+
+<fieldset>
+    @using (Html.BeginForm("Transaction", "Accounts", FormMethod.Post))
+    {
+        <table class="table">
+            <tr>
+                <th>@Html.Label("Your account number")</th>
+                <th>@Html.Label("Money in Your account")</th>
+                <th>@Html.Label("Reciever's ID")</th>
+                <th>@Html.Label("Reciever's account number")</th>
+                <th>@Html.Label("Amount")</th>
+                <th>@Html.Label("Message")</th>
+            </tr>
+            <tr>
+                <th>@Model.accNum</th>
+                <th>@Html.DisplayFor(m => m.net)</th>
+                <th>
+                    @{
+                        if (ViewBag.UserList != null)
+                        {
+                            @Html.DropDownListFor(m => m.accID, ViewBag.UserList as SelectList, "Select-ID", new { @class = "form-control", @onchange = "birimGuncelle()" })
+                        }
+                    }
+                </th>
+                <th>@{@Html.DropDownListFor(m => m.accNum, new SelectList(""), new { @class = "form-control ", @id = "list" })}</th>
+                <th>@Html.TextBox("amount", null, new { @type = "number" })</th>
+                @*<th>@Html.TextBox("Message")</th>*@
+            </tr>
+        </table>
+
+
+
+    }
+
+    <input class="btn btn-info" type="button" onclick="send()" value="Make Transaction" /> |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    
+</fieldset>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    function birimGuncelle() {
+        $.ajax({
+            type: 'GET',
+            data: { accID: $('#accID').val(), },
+            url: "/Accounts/GetUserList",
+            beforeSend: function () {
+
+            },
+            success: function (myJSONdata) {
+                $("#list").empty();
+                $.each(myJSONdata, function (key, value) {
+                    console.log(myJSONdata);
+                    var txt = myJSONdata[key].Text;
+                    var val = myJSONdata[key].Value;
+
+                    $("#list").append("<option value='" + txt + "'>" + val + "</option>");
+
+                });
+            },
+            error: function (myJSONdata) {
+                console.log(myJSONdata);
+            },
+            complete: function () {
+
+            }
+        });
+    }
+    var body = {
+        SenderID : "",
+        recieverID : "",
+        Amount : 0,
+        Message : " "
+    };
+    function send() {
+        body["SenderID"] = "@Model.accNum";
+        body["recieverID"] = $('#list').val();
+        body["Amount"] = $('#amount').val();
+        @*body["Message"] = $('#Message');*@
+        $.ajax({
+            type: 'POST',
+            data: body,
+            url: "/Accounts/Transaction",
+            beforeSend: function() {
+                return confirm("Please verify your action. Are you still want to make transaction ?");
+            },
+            success: function (myJSONdata) {
+                alert(body.Amount + "$ transfered from account number " + body.SenderID + " to " + body.recieverID + " with message '" + body.Message+"'.");
+                window.location = '/Accounts/';
+            }
+            });
+    };
+</script>

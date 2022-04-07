@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "newUser";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>New User</h2>
+
+<form class="form-group" method="post">
+
+    <div class="container">
+        <hr />
+        <label>Username : </label>
+        <input type="text" name="username" required="required" />
+        <hr />
+        <label>Password : </label>
+        <input type="password" name="password" required="required" />
+        <hr />
+        <label>Name : </label>
+        <input type="text" name="name" required="required" />
+        <hr />
+        <label>Lastname : </label>
+        <input type="text" name="lastname" required="required" />
+        <hr />
+        <label>Address : </label>
+        <input type="text" name="address" required="required" />
+        <hr />
+        <label>Gender : </label><br />
+        <input type="radio" id="male" name="gender" value="male" required="required" checked="checked">
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="female" required="required">
+        <label for="female">Female</label><br>
+        <hr />
+        <label>Account Type : </label>
+        <br>
+        <input type="radio" id="accType" name="accType" value="admin" required="required">
+        <label for="male">Admin</label><br>
+        <input type="radio" id="accType" name="accType" value="user" required="required" checked="checked">
+        <label for="user">User</label><br>
+        <hr />
+        <button class="btn btn-info">Add New User</button>
+    </div>
+
+</form>

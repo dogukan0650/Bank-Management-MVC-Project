@@ -1,0 +1,59 @@
+﻿@using MvcProject.Models.Entity
+
+@model List<Transaction>
+@{
+    ViewBag.Title = "HistoryOf";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form>
+    <input class="btn btn-info" type="button" value="Print this page" onClick="window.print()">
+</form>
+
+<h2>History of Account(s)</h2>
+<button class="btn-link" id="cmd">Save Page</button>
+<div id="table1">
+    <table class="table table-bordered" id="HistoryTable">
+        <thead>
+            <tr>
+                <th width="10%">@Html.DisplayNameFor(m => m.First().ID)</th>
+                <th width="20%">Sender Account Number</th>
+                <th width="20%">Receiver Account Number</th>
+                <th>Message</th>
+                <th width="10%">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Transaction transaction in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => transaction.ID)</td>
+                    <td>@Html.DisplayFor(m => transaction.senderID)</td>
+                    <td>@Html.DisplayFor(m => transaction.recieverID)</td>
+                    <td>@Html.DisplayFor(m => transaction.message)</td>
+                    <td>@Html.DisplayFor(m => transaction.amount)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<link href="~/Content/DataTables/css/buttons.bootstrap4.css" rel="stylesheet" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+<script>
+    $('#HistoryTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'print'
+        ]
+    });
+</script>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+</div>
+

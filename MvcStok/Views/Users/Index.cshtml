@@ -1,0 +1,48 @@
+﻿@using MvcProject.Models.Entity
+@model User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@*      --------User Giriş Sayfası--------   *@
+<h2>@Model.name-@Model.lastname</h2>
+<h4>User Details</h4>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Password</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Type</th>
+        <th></th>
+    </tr>
+    <tr>
+        
+        <td>@Model.ID</td>
+        <td>@Model.username</td>
+        <td>@Model.name</td>
+        <td>@Model.lastname</td>
+        <td>@Model.password</td>
+        <td>@Model.address</td>
+        <td>@Model.gender</td>
+        <td>@Model.accType</td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Details", "Details", new { id = Model.ID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+</table>
+<script>
+function myFunction() {
+  var x = document.getElementById("myInput");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>

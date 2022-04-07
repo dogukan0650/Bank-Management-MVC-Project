@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MvcProject.Models.Entity.User>
+@{
+    ViewBag.Title = "ShowDeletedUsers";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>ShowDeletedUsers</h2>
+@{
+
+    <table class="table table-bordered">
+        <tr>
+            <th>User's ID</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>Account Type</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.ID)</td>
+        <td>@Html.DisplayFor(modelItem => item.username)</td>
+        <td>@Html.DisplayFor(modelItem => item.name)</td>
+        <td>@Html.DisplayFor(modelItem => item.lastname)</td>
+        <td>@Html.DisplayFor(modelItem => item.gender)</td>
+        <td>@Html.DisplayFor(modelItem => item.address)</td>
+        <td>@Html.DisplayFor(modelItem => item.accType)</td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("DeletePermanent", "DeletePermanent", new { id = item.ID }, new { @class = "btn btn-danger" }) |
+            @Html.ActionLink("Reactivate", "ActivateAccount", new { id = item.ID }, new { @class = "btn btn-success" })
+        </td>
+    </tr>
+        }
+    </table>
+    <form action="/Admin/Index">
+        <button class="btn btn-default">Back to Active Users</button>
+    </form>
+
+}

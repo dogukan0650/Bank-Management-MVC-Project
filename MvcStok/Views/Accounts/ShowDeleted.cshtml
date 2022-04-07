@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MvcProject.Models.Entity.Account>
+@{
+    ViewBag.Title = "ShowDeleted";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Deleted Accounts</h2>
+
+@{
+
+    <table class="table table-bordered">
+        <tr>
+            <th>User's ID</th>
+            <th>Account Number</th>
+            <th>Money</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.accID)</td>
+            <td>@Html.DisplayFor(modelItem => item.accNum)</td>
+            <td>@Html.DisplayFor(modelItem => item.net)$</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.accNum } , new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.accNum } , new { @class = "btn btn-default" }) |
+                @Html.ActionLink("DeletePermanent", "DeletePermanent", new { id = item.accNum }, new { @class = "btn btn-danger" }) |
+                @Html.ActionLink("Reactivate", "ActivateAccount", new { id = item.accNum }, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+        }
+    </table>
+    <form action="/Accounts/Index">
+        <button class="btn btn-default">Back to Active Accounts</button>
+    </form>
+
+}

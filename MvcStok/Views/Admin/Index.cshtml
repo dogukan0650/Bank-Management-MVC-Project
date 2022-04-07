@@ -1,0 +1,43 @@
+﻿@using MvcProject.Models.Entity
+@model List<User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<!-- -----------Admin index page----------- -->
+<h2>Kullanıcılar</h2>
+<div><a href="/Admin/ShowDeletedUsers" class="btn btn-primary">Deleted Users</a></div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Password</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Type</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tbody>
+        @foreach (var usr in Model)
+        {
+            <tr>
+                <td>@usr.ID</td>
+                <td>@usr.username</td>
+                <td>@usr.name</td>
+                <td>@usr.lastname</td>
+                <td>@usr.password</td>
+                <td>@usr.address</td>
+                <td>@usr.gender</td>
+                <td>@usr.accType</td>
+
+                <td><a href="/Admin/del/@usr.ID" class="btn btn-danger">delete</a></td>
+                <td><a href="/Admin/editPage/@usr.ID" class="btn btn-default">edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Admin/newUser" class="btn btn-primary">New User</a>

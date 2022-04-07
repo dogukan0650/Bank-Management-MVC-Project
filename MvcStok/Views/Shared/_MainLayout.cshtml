@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = null;
+}
+@{ if (User.Identity.IsAuthenticated)
+    {
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <title>Bootstrap Example</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        </head>
+        <body>
+
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="Home">MVC PROJECT</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+
+                        @{
+
+                            if (Session["accType"].Equals("admin"))
+                            {
+                                <li class="active"><a href="/Admin">Home</a></li>
+                            }
+                            if (Session["accType"].Equals("user"))
+                            {
+                                <li class="active"><a href="/Users/" + @Session["ID"]>Home</a></li>
+                            }
+                        }
+
+
+                        @{
+                            if (Session["accType"].Equals("admin"))
+                            {
+                                <li><a href="/Admin/">Users</a></li>
+                            }
+                        }
+
+
+                        @{
+                            if (Session["accType"].Equals("admin"))
+                            {
+                                <li><a href="/Accounts">Accounts</a></li>
+                            }
+                            if (Session["accType"].Equals("user"))
+                            {
+                                <li><a href="/Accounts/" + Session["ID"]>Accounts</a></li>
+                            }
+                        }
+
+
+                    </ul>
+
+
+                </div>
+
+                <div>
+                    <label class="text-warning">ID :@Session["ID"]</label>
+                    <label class="text-warning"> Type :@Session["accType"]</label>
+
+                </div>
+                <a class="btn btn-danger" href="@Url.Action("Logout" , "Home")"> Logout</a>
+            </nav>
+
+            <div class="container">
+                @RenderBody()
+            </div>
+
+        </body>
+    </html>
+
+
+
+}
+
+}

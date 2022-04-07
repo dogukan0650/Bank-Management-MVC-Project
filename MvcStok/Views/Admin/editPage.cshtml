@@ -1,0 +1,36 @@
+﻿@model MvcProject.Models.Entity.User
+@{
+    ViewBag.Title = "editPage";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Edit Page</h2>
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.ID, "ID: ")
+        @Html.TextBoxFor(m => m.ID, new { @readonly = "true" })
+        <br />
+        @Html.LabelFor(m => m.name, "Name")
+        @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.lastname, "Lastname")
+        @Html.TextBoxFor(m => m.lastname, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.password, "Password")
+        @Html.TextBoxFor(m => m.password, new { @class = "form-control" })
+        <br />
+
+        @Html.LabelFor(m => m.gender, "Gender")<br />
+        @Html.RadioButtonFor(m => m.gender, "male")@Html.Label("Male")
+        <br />
+        @Html.RadioButtonFor(m => m.gender, "female")@Html.Label("Female")<br />
+        <br />
+        @Html.LabelFor(m => m.address, "Address")
+        @Html.TextBoxFor(m => m.address, new { @class = "form-control" })
+    </div>
+    <div>
+        <button class="btn btn-info">Edit</button> |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    </div>
+}

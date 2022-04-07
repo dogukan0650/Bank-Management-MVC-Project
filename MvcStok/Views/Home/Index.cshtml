@@ -1,0 +1,30 @@
+﻿@model MvcProject.Models.Entity.User
+@{
+    ViewBag.Title = "Home Page";
+    Session.Abandon();
+}
+@*      --------Giriş Sayfası--------   *@
+<center>
+
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <br />
+        <br />
+        <div>
+            <label >Username:</label>
+            <input type="text" name="username" />
+        </div>
+
+        <div>
+            <label >Password:</label>
+            <input type="password" name="password" />
+        </div>
+        <label class="text-danger">@Html.DisplayFor(m => m.LoginError)</label>
+        <br />
+        <div>
+            <a href="/Home/Register/" class="btn btn-default">Register</a>
+            <button class="btn btn-default" type="submit">Login</button>
+        </div>
+    }
+</center>
+

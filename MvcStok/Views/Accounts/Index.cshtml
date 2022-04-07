@@ -1,0 +1,70 @@
+﻿@model IEnumerable<MvcProject.Models.Entity.Account>
+@using MvcProject.Models.Entity;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+@{
+
+
+
+    if (User.Identity.IsAuthenticated)
+    {
+
+        if (Session["accType"].Equals("admin"))
+        {
+            <h2> Active User Accounts</h2>
+        }
+        if (Session["accType"].Equals("user"))
+        {
+            <h2> Accounts </h2>
+        }
+
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" }) |
+    @if (Session["accType"].Equals("admin"))
+    {
+        <a href="/Accounts/ShowDeleted" class="btn btn-primary">Deleted Accounts</a>
+    }
+    | @Html.ActionLink("History", "History", new { id = Session["ID"] }, new { @class = "btn btn-info" })
+
+</p>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Account Number</th>
+                <th>Money</th>
+                <th>Edit</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(modelItem => item.accID) </td>
+                    <td> @Html.DisplayFor(modelItem => item.accNum) </td>
+                    <td> @Html.DisplayFor(modelItem => item.net)$</td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.accNum }, new { @class = "btn btn-info" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.accNum }, new { @class = "btn btn-default" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.accNum }, new { @class = "btn btn-danger" }) |
+                        @Html.ActionLink("TransactionPage", "TransactionPage", new { id = item.accNum }, new { @class = "btn btn-success" }) |
+                        @Html.ActionLink("History", "HistoryOf", new { id = item.accNum }, new { @class = "btn btn-success" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    }
+    else
+    {
+        <center>
+            <label class="has-error"> Session ID is null </label>
+        </center>
+    }
+}

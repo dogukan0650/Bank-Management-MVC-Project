@@ -1,0 +1,9 @@
+﻿
+<option value="">--Account ID--</option>
+@if(ViewBag.AccountList != null)
+            {
+                foreach (var item in ViewBag.AccountList)
+                {
+                    <option value="@item.value">item.Text</option>
+                }
+            }
